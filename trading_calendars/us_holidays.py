@@ -15,7 +15,13 @@ from pandas.tseries.holiday import Holiday, nearest_workday, sunday_to_monday
 from pandas.tseries.offsets import Day
 
 from .common_holidays import new_years_day
-from .exchange_calendar import FRIDAY, MONDAY, THURSDAY, TUESDAY, WEDNESDAY
+from .trading_calendar import (
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+)
 
 
 def following_tuesday_every_four_years_observance(dt):
