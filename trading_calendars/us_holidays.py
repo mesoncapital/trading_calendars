@@ -9,33 +9,13 @@ These were originally added in
 https://github.com/rsheftel/pandas_market_calendars/pull/30
 """
 
-from pandas import (
-    Timestamp,
-    DateOffset,
-)
-from pytz import UTC
-
-from pandas.tseries.holiday import (
-    Holiday,
-    sunday_to_monday,
-    nearest_workday,
-)
-
-from dateutil.relativedelta import (
-    MO,
-    TH,
-    TU,
-)
+from dateutil.relativedelta import MO, TH, TU
+from pandas import DateOffset, Timestamp
+from pandas.tseries.holiday import Holiday, nearest_workday, sunday_to_monday
 from pandas.tseries.offsets import Day
 
 from .common_holidays import new_years_day
-from .trading_calendar import (
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-)
+from .exchange_calendar import FRIDAY, MONDAY, THURSDAY, TUESDAY, WEDNESDAY
 
 
 def following_tuesday_every_four_years_observance(dt):
@@ -156,7 +136,13 @@ USMemorialDay = Holiday(
     start_date=Timestamp("1971-01-01"),
     offset=DateOffset(weekday=MO(1)),
 )
-
+USJuneteenth = Holiday(
+    "Juneteenth National Independence Day",
+    month=6,
+    day=19,
+    start_date=Timestamp("2022-01-01"),
+    observance=nearest_workday
+)
 USIndependenceDayBefore1954 = Holiday(
     "July 4th",
     month=7,
@@ -278,90 +264,90 @@ BattleOfGettysburg = Holiday(
 
 
 November29BacklogRelief = [
-    Timestamp("1929-11-01", tz="UTC"),
-    Timestamp("1929-11-29", tz="UTC"),
+    Timestamp("1929-11-01"),
+    Timestamp("1929-11-29"),
 ]
 
 March33BankHoliday = [
-    Timestamp("1933-03-06", tz="UTC"),
-    Timestamp("1933-03-07", tz="UTC"),
-    Timestamp("1933-03-08", tz="UTC"),
-    Timestamp("1933-03-09", tz="UTC"),
-    Timestamp("1933-03-10", tz="UTC"),
-    Timestamp("1933-03-13", tz="UTC"),
-    Timestamp("1933-03-14", tz="UTC"),
+    Timestamp("1933-03-06"),
+    Timestamp("1933-03-07"),
+    Timestamp("1933-03-08"),
+    Timestamp("1933-03-09"),
+    Timestamp("1933-03-10"),
+    Timestamp("1933-03-13"),
+    Timestamp("1933-03-14"),
 ]
 
 August45VictoryOverJapan = [
-    Timestamp("1945-08-15", tz="UTC"),
-    Timestamp("1945-08-16", tz="UTC"),
+    Timestamp("1945-08-15"),
+    Timestamp("1945-08-16"),
 ]
 
 
 ChristmasEvesAdhoc = [
-    Timestamp("1945-12-24", tz="UTC"),
-    Timestamp("1956-12-24", tz="UTC"),
+    Timestamp("1945-12-24"),
+    Timestamp("1956-12-24"),
 ]
 
-DayAfterChristmasAdhoc = [Timestamp("1958-12-26", tz="UTC")]
+DayAfterChristmasAdhoc = [Timestamp("1958-12-26")]
 
-DayBeforeDecorationAdhoc = [Timestamp("1961-05-29", tz="UTC")]
+DayBeforeDecorationAdhoc = [Timestamp("1961-05-29")]
 
-LincolnsBirthDayAdhoc = [Timestamp("1968-02-12", tz="UTC")]
+LincolnsBirthDayAdhoc = [Timestamp("1968-02-12")]
 
 PaperworkCrisis68 = [
-    Timestamp("1968-06-12", tz="UTC"),
-    Timestamp("1968-06-19", tz="UTC"),
-    Timestamp("1968-06-26", tz="UTC"),
-    Timestamp("1968-07-10", tz="UTC"),
-    Timestamp("1968-07-17", tz="UTC"),
-    Timestamp("1968-07-24", tz="UTC"),
-    Timestamp("1968-07-31", tz="UTC"),
-    Timestamp("1968-08-07", tz="UTC"),
-    Timestamp("1968-08-14", tz="UTC"),
-    Timestamp("1968-08-21", tz="UTC"),
-    Timestamp("1968-08-28", tz="UTC"),
-    Timestamp("1968-09-11", tz="UTC"),
-    Timestamp("1968-09-18", tz="UTC"),
-    Timestamp("1968-09-25", tz="UTC"),
-    Timestamp("1968-10-02", tz="UTC"),
-    Timestamp("1968-10-09", tz="UTC"),
-    Timestamp("1968-10-16", tz="UTC"),
-    Timestamp("1968-10-23", tz="UTC"),
-    Timestamp("1968-10-30", tz="UTC"),
-    Timestamp("1968-11-11", tz="UTC"),
-    Timestamp("1968-11-20", tz="UTC"),
-    Timestamp("1968-12-04", tz="UTC"),
-    Timestamp("1968-12-11", tz="UTC"),
-    Timestamp("1968-12-18", tz="UTC"),
-    Timestamp("1968-12-25", tz="UTC"),
+    Timestamp("1968-06-12"),
+    Timestamp("1968-06-19"),
+    Timestamp("1968-06-26"),
+    Timestamp("1968-07-10"),
+    Timestamp("1968-07-17"),
+    Timestamp("1968-07-24"),
+    Timestamp("1968-07-31"),
+    Timestamp("1968-08-07"),
+    Timestamp("1968-08-14"),
+    Timestamp("1968-08-21"),
+    Timestamp("1968-08-28"),
+    Timestamp("1968-09-11"),
+    Timestamp("1968-09-18"),
+    Timestamp("1968-09-25"),
+    Timestamp("1968-10-02"),
+    Timestamp("1968-10-09"),
+    Timestamp("1968-10-16"),
+    Timestamp("1968-10-23"),
+    Timestamp("1968-10-30"),
+    Timestamp("1968-11-11"),
+    Timestamp("1968-11-20"),
+    Timestamp("1968-12-04"),
+    Timestamp("1968-12-11"),
+    Timestamp("1968-12-18"),
+    Timestamp("1968-12-25"),
 ]
 
-DayAfterIndependenceDayAdhoc = [Timestamp("1968-07-05", tz="UTC")]
+DayAfterIndependenceDayAdhoc = [Timestamp("1968-07-05")]
 
-WeatherSnowClosing = [Timestamp("1969-02-10", tz="UTC")]
+WeatherSnowClosing = [Timestamp("1969-02-10")]
 
-FirstLunarLandingClosing = [Timestamp("1969-07-21", tz="UTC")]
+FirstLunarLandingClosing = [Timestamp("1969-07-21")]
 
-NewYorkCityBlackout77 = [Timestamp("1977-07-14", tz="UTC")]
+NewYorkCityBlackout77 = [Timestamp("1977-07-14")]
 
 
 # http://en.wikipedia.org/wiki/Aftermath_of_the_September_11_attacks
 September11Closings = [
-    Timestamp("2001-09-11", tz=UTC),
-    Timestamp("2001-09-12", tz=UTC),
-    Timestamp("2001-09-13", tz=UTC),
-    Timestamp("2001-09-14", tz=UTC),
+    Timestamp("2001-09-11"),
+    Timestamp("2001-09-12"),
+    Timestamp("2001-09-13"),
+    Timestamp("2001-09-14"),
 ]
 
 # http://en.wikipedia.org/wiki/Hurricane_sandy
 HurricaneSandyClosings = [
-    Timestamp("2012-10-29", tz=UTC),
-    Timestamp("2012-10-30", tz=UTC),
+    Timestamp("2012-10-29"),
+    Timestamp("2012-10-30"),
 ]
 
 # add Hurricane Gloria closing
-HurricaneGloriaClosing = [Timestamp("1985-09-27", tz=UTC)]
+HurricaneGloriaClosing = [Timestamp("1985-09-27")]
 
 
 # National Days of Mourning
@@ -377,13 +363,13 @@ HurricaneGloriaClosing = [Timestamp("1985-09-27", tz=UTC)]
 # added Truman and Johnson to go back to 1970
 # http://s3.amazonaws.com/armstrongeconomics-wp/2013/07/NYSE-Closings.pdf
 USNationalDaysofMourning = [
-    Timestamp("1963-11-25", tz="UTC"),
-    Timestamp("1968-04-09", tz="UTC"),
-    Timestamp("1969-03-31", tz="UTC"),
-    Timestamp("1972-12-28", tz=UTC),
-    Timestamp("1973-01-25", tz=UTC),
-    Timestamp("1994-04-27", tz=UTC),
-    Timestamp("2004-06-11", tz=UTC),
-    Timestamp("2007-01-02", tz=UTC),
-    Timestamp("2018-12-05", tz=UTC),
+    Timestamp("1963-11-25"),
+    Timestamp("1968-04-09"),
+    Timestamp("1969-03-31"),
+    Timestamp("1972-12-28"),
+    Timestamp("1973-01-25"),
+    Timestamp("1994-04-27"),
+    Timestamp("2004-06-11"),
+    Timestamp("2007-01-02"),
+    Timestamp("2018-12-05"),
 ]
